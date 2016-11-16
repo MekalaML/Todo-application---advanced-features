@@ -1,0 +1,8 @@
+.page-bckgrnd {
+	background-image: url("giphy.gif");
+	background-size: 100%;
+}
+
+h1.hilit {
+	background-color: white;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>Todo App - Mekala</title>
+	<script src="angular.js"></script>
+	<link rel="stylesheet" href="view.css">
+</head>
+
+<body ng-app="Todomodule" class="page-bckgrnd">
+	<div ng-controller="Todocntrl as cntl">
+		<h1 class="hilit">Todo App</h1>
+		<p>Add a Todo:</p>
+		<input type="text" ng-model="cntl.newTodo" /><br>
+		<button ng-click="cntl.addTodo()">Add</button><br>
+		<p>Your Todos:</p>
+		<button ng-click="cntl.editTodo()" ng-hide="cntl.edit">Edit</button>
+		<button ng-click="cntl.editTodo()" ng-show="cntl.edit">Done</button>
+		<div>
+			<ol>
+				<li ng-repeat="todo in cntl.TodoList track by $index"> <!--instaed of tracking repeat by element, track by index of array. With this dup of array 															can be handled -->
+					<span ng-bind="todo" ng-hide="cntl.edit"></span>
+					<input type="text" ng-show="cntl.edit" ng-model="todo"/>
+					<button ng-click="cntl.deleteTodo($index)" ng-hide="cntl.edit">Delete</button>
+				</li>
+			</ol>
+		</div>
+	</div>
+
+	<script>
+		angular.module("Todomodule",[])
+		.controller("Todocntrl", Todocntrl);
+		function Todocntrl(){
+			this.TodoList = [];
+			this.edit = false;
+
+			this.addTodo = function(){
+				this.TodoList.push(this.newTodo);
+			}
+
+			this.editTodo = function(){
+					this.edit = !this.edit;
+			}
+
+			this.deleteTodo = function(index){
+				this.TodoList.splice(index,1);
+			}
+			
+		}
+	</script>
+
+</body>
+
+</html>
